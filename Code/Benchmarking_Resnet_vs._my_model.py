@@ -1,5 +1,5 @@
 "Danial Yntykbay, LSP: 2330236"
-
+"github link: https://github.com/Danial-yd/Image_segmentation"
 """
 Semantic Segmentation Pipeline using FiftyOne and PyTorch
 
@@ -307,3 +307,13 @@ training_loop(
 # Evaluate ResNet model
 print("\nResNet Model Evaluation:")
 print(evaluate_model(model_resnet, test_loader))
+
+            precision    recall  f1-score      support
+Background       0.38      0.61      0.46   2,124,160
+Person           0.50      0.22      0.31   1,794,235
+Dog              0.00      0.00      0.00     393,094
+Car              0.45      0.47      0.46   2,242,111
+------------------------------------------------------
+accuracy                             0.42     6,553,600
+macro avg        0.33      0.33      0.31
+weighted avg     0.41      0.42      0.39
