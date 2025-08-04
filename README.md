@@ -7,7 +7,7 @@ To evaluate the impact of different loss functions on semantic segmentation perf
 
 ---
 
-## 📷 Visual Comparison – Cross Entropy Loss
+## Visual Comparison – Cross Entropy Loss
 
 Here is an example output from the segmentation model trained with **Cross Entropy Loss and Dice loss**, respectively:
 
@@ -39,9 +39,9 @@ Here is an example output from the segmentation model trained with **Cross Entro
 ### Observations
 
 - **Dice Loss** performed better for **Bus** and **Car** classes, especially in **precision**, suggesting improved handling of class imbalance.
-- 🎯 **Cross Entropy** achieved **higher recall** for **Car**, but at the cost of lower precision.
-- 🆘 **Traffic Light** segmentation failed under both losses due to extremely low support — indicating a strong need for data augmentation or resampling.
-- 🧱 **Background** class maintained high performance across both losses, slightly favoring **Dice Loss** in F1-score.
+- **Cross Entropy** achieved **higher recall** for **Car**, but at the cost of lower precision.
+- **Traffic Light** segmentation failed under both losses due to extremely low support — indicating a strong need for data augmentation or resampling.
+- **Background** class maintained high performance across both losses, slightly favoring **Dice Loss** in F1-score.
 
 ---
 
