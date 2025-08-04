@@ -9,10 +9,11 @@ To evaluate the impact of different loss functions on semantic segmentation perf
 
 ## 📷 Visual Comparison – Cross Entropy Loss
 
-Here is an example output from the segmentation model trained with **Cross Entropy Loss and Dice loss**:
+Here is an example output from the segmentation model trained with **Cross Entropy Loss and Dice loss**, respectively:
 
 ![Cross Entropy Loss Result](images/cross_entropy_loss.png)
 ![Dice Loss Result](images/dice_loss.png)
+
 ### Per-Class Metrics
 
 #### **Cross Entropy Loss**
