@@ -1,49 +1,47 @@
-# Semantic Segmentation on Open Images V7
+## Loss Function Comparison: Cross Entropy vs. Dice Loss
 
-## Project Overview
+To evaluate the impact of different loss functions on semantic segmentation performance, we compared two approaches:
 
-This repository contains an implementation of semantic segmentation models for multi-class object detection in the **Open Images V7** dataset. We compare a custom-designed **U-Net** architecture against a modified **DeepLabV3-ResNet101** model, focusing on three target classes: **Person**, **Car**, **Dog**, and **Background**.
-
----
-
-## Key Components
-
-### ✅ **Dataset Processing**
-- Created multi-class segmentation masks from Open Images' instance annotations
-- Preprocessed **6,100 samples** to **256×256** resolution
-- Implemented class-specific masking:  
-  - `Background = 0`  
-  - `Person = 1`  
-  - `Dog = 2`  
-  - `Car = 3`  
-
-### **Model Architecture**
-- **Custom U-Net**: Lightweight encoder-decoder structure with dropout regularization  
-- **DeepLabV3-ResNet101**: Pretrained model adapted for 4-class segmentation  
-
-### **Training & Evaluation**
-- 8-epoch training using **SGD optimizer** (`lr = 0.01`)
-- Pixel-wise **CrossEntropyLoss** implementation
-- Comprehensive per-class metrics: **Precision**, **Recall**, **F1-Score**
-- Support-weighted **accuracy** calculation
+- **Cross Entropy Loss** (standard pixel-wise classification)
+- **Dice Loss** (optimized for imbalanced segmentation)
 
 ---
 
-## 📊 Key Findings
 
-| **Metric**        | **Custom U-Net** | **DeepLabV3**   | **Improvement** |
-|-------------------|------------------|------------------|------------------|
-| **Accuracy**       | 42%              | 58%              | **+38%**         |
-| **Weighted F1**    | 39%              | 52%              | **+33%**         |
-| **Inference Speed**| 23ms/img         | 41ms/img         | **-78%**         |
+![Cross Entropy Loss Result](images/cross_entropy_loss.png)
+
+### Per-Class Metrics
+
+#### **Cross Entropy Loss**
+
+| **Class**        | **Precision** | **Recall** | **F1-Score** | **Support** |
+|------------------|---------------|------------|--------------|-------------|
+| Background        | 0.97          | 0.90       | 0.93         | 5,146,089   |
+| Car               | 0.70          | 0.88       | 0.78         | 1,250,747   |
+| Bus               | 0.52          | 0.70       | 0.60         | 156,170     |
+| Traffic Light     | 0.00          | 0.00       | 0.00         | 594         |
+
+#### **Dice Loss**
+
+| **Class**        | **Precision** | **Recall** | **F1-Score** | **Support** |
+|------------------|---------------|------------|--------------|-------------|
+| Background        | 0.93          | 0.94       | 0.94         | 5,146,089   |
+| Car               | 0.76          | 0.74       | 0.75         | 1,250,747   |
+| Bus               | 0.74          | 0.57       | 0.64         | 156,170     |
+| Traffic Light     | 0.00          | 0.00       | 0.00         | 594         |
 
 ---
 
-## Class-Specific Insights
+### Observations
 
-- 🐕 **Dog** class showed **0 performance** due to extreme data imbalance  
-- 👥 **Person** detection achieved **highest precision** at **50%**  
-- 🚗 **Car** segmentation showed **most balanced performance**  
-- 🌆 **Background** class dominated **recall metrics** at **61%**
+- **Dice Loss** performed better for **Bus** and **Car** classes, especially in **precision**, suggesting improved handling of class imbalance.
+- 🎯 **Cross Entropy** achieved **higher recall** for **Car**, but at the cost of lower precision.
+- 🆘 **Traffic Light** segmentation failed under both losses due to extremely low support — indicating a strong need for data augmentation or resampling.
+- 🧱 **Background** class maintained high performance across both losses, slightly favoring **Dice Loss** in F1-score.
 
+---
 
+### Conclusion
+
+- **Dice Loss** is generally more robust in **imbalanced datasets**, offering improved precision and overall segmentation balance.
+- **Cross Entropy** may still outperform on dominant classes (like Car) in recall but can be biased by class frequency.
